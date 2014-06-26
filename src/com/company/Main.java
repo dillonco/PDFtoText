@@ -12,8 +12,9 @@ public final class Main {
             System.out.println("Random " + i + " : " + randomInt);
         }
 
-        System.out.println("Mission Accomplished! Heyooo");
+        System.out.println("Monster Rancher");
     }
 
 }
+
 
