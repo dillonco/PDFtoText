@@ -12,7 +12,7 @@ public final class Main {
             System.out.println("Random " + i + " : " + randomInt);
         }
 
-        System.out.println("Monster Rancher");
+        System.out.println("Monster Ranchers");
     }
 
 }
