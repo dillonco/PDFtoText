@@ -12,7 +12,7 @@ public final class Main {
             System.out.println("Random " + i + " : " + randomInt);
         }
 
-        for (int i = 1; i <=10; i++){
+        for (int i = 1; i <= 10; i++){
             double randomInt2 = Math.floor(Math.random() * 100);
             System.out.println("Random 2 " + i + ": " + randomInt2);
         }
