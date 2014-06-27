@@ -3,7 +3,7 @@ package com.company;
 import java.util.*;
 
 public final class Main {
-    public static final void main(String... aArgs){
+     public static void main (String[] args){
         System.out.println("Creating 10 random integers between 1 and 100");
 
         Random randomGenerator = new Random();
