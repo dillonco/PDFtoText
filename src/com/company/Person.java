@@ -7,7 +7,7 @@ public class Person {
 
     private Name name;
     private Address address;
-    private String id;
+    private int id;
 
     public Person(Name name,Address address)
     {
@@ -15,14 +15,14 @@ public class Person {
         this.address = address;
     }
 
-    public Person(Name name,Address address, String id)
+    public Person(Name name,Address address, int id)
     {
         this.name = name;
         this.address = address;
         this.id = id;
     }
 
-    public String getId()
+    public int getId()
     {
         return id;
     }
@@ -34,6 +34,6 @@ public class Person {
 
     public String toString()
     {
-        return "Person # "+ id + " " + name.toString() + "\n"  + address.toString();
+        return "\nPerson # "+ id + " " + name.toString() + "\n"  + address.toString();
     }
 }

@@ -21,27 +21,30 @@ public final class Main {
         **/
 
          Scanner sc = new Scanner(System.in);
-         System.out.println("Please Enter First Name");
-         String firstName = sc.nextLine();
-         System.out.println("Please Enter Last Name");
-         String lastName = sc.nextLine();
+         for (int i = 1; i <= 5; i++) {
+             System.out.println("Please Enter First Name");
+             String firstName = sc.nextLine();
+             System.out.println("Please Enter Last Name");
+             String lastName = sc.nextLine();
 
-         Name name = new Name(firstName, lastName);
+             Name name = new Name(firstName, lastName);
 
-         System.out.println("Please Enter Your House Number and Street Name");
-         String street = sc.nextLine();
-         System.out.println("Please Enter Your City Name");
-         String city = sc.nextLine();
-         System.out.println("Please Enter Your State/Province Name");
-         String state = sc.nextLine();
-         System.out.println("Please Enter Your ZIP Code");
-         String zip = sc.nextLine();
+             System.out.println("Please Enter Your House Number and Street Name");
+             String street = sc.nextLine();
+             System.out.println("Please Enter Your City Name");
+             String city = sc.nextLine();
+             System.out.println("Please Enter Your State/Province Name");
+             String state = sc.nextLine();
+             System.out.println("Please Enter Your ZIP Code");
+             String zip = sc.nextLine();
 
-         Address address = new Address(street, city, state, zip);
+             Address address = new Address(street, city, state, zip);
 
-         Person person = new Person(name, address, "1");
+             Person person = new Person(name, address, i);
 
-         System.out.println(person.toString());
+             System.out.println(person.toString());
+             System.out.println();
+         }
 
     }
 
