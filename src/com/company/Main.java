@@ -18,6 +18,7 @@ public final class Main {
         }
 
         System.out.println("Monster Ranchers Double Swag");
+        Test
         **/
 
          Scanner sc = new Scanner(System.in);
