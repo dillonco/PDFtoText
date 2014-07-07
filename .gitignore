@@ -40,3 +40,6 @@ Icon
 .idea/workspace.xml
 .idea/tasks.xml
 *.iws
+
+#PDF To Text
+images/
