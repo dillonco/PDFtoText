@@ -36,7 +36,11 @@ public class basicGUI extends JFrame {
                 if(returnVal == JFileChooser.APPROVE_OPTION) {
                     String location = (chooser.getCurrentDirectory() + "\\" +
                             chooser.getSelectedFile().getName());
+                    browseFileTextField.setText(location);
+
                     Main.runOCR(location);
+
+
                 }
             }
         });
@@ -53,12 +57,14 @@ public class basicGUI extends JFrame {
                 if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
                     System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+                    saveAsTextField.setText(String.valueOf(chooser.getSelectedFile()));
                 } else {
                     System.out.println("No Selection ");
                 }
 
             }
                                        });
+
 
 
         closeButton.addActionListener(new ActionListener() {
