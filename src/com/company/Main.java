@@ -18,12 +18,14 @@ public class Main {
     private static String[] pageArray;
 
     public static void main(String[] args) {
-        String location = ("InvoiceDetail.pdf");
+        basicGUI newForm = new basicGUI();
+    }
+    public static void runOCR(String location) {
         String destination = location.replace(location.substring(location.length() - 4), ".txt");
         try {
             String fileType = fileType(location);
             if (fileType.equals("application/pdf")) {
-               pageArray = ConvertPDFPageToImage.convert(location);
+                pageArray = ConvertPDFPageToImage.convert(location);
             } else if (!fileType.substring(0,5).equals("image")) {
                 System.out.println("File type " + fileType + " is not supported.");
             }
@@ -59,7 +61,7 @@ public class Main {
 
             File file =new File(filename);
 
-            //if file doesnt exists, then create it
+            //if file doesn't exists, then create it
             if(!file.exists()){
                 file.createNewFile();
             }
