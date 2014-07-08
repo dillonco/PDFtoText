@@ -5,6 +5,7 @@ package com.company;
  */
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -43,6 +44,8 @@ public class ConvertPDFPageToImage {
                 System.err.println(fileName + "File does not exist");
             }
 
+        } catch (IOException e) {
+            System.err.println("File exists but empty");
         } catch (Exception e) {
             e.printStackTrace();
         }

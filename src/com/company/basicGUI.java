@@ -17,6 +17,7 @@ public class basicGUI extends JFrame {
     private JButton browseButton;
     private JButton saveAsButton;
     private JPanel rootPanel;
+    private JLabel runningLabel;
 
     private String browseLocation;
     private String saveLocation;
@@ -27,7 +28,7 @@ public class basicGUI extends JFrame {
         setContentPane(rootPanel);
 
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setIconImage(Toolkit.getDefaultToolkit().getImage("paper_icon.png"));
 
@@ -45,6 +46,8 @@ public class basicGUI extends JFrame {
                     browseFileTextField.setText(browseLocation);
                     saveLocation = browseLocation.replace(browseLocation.substring(browseLocation.length() - 4), ".txt");
                     saveAsTextField.setText(saveLocation);
+
+                    runningLabel.setText("Image loaded");
                 }
             }
         });
@@ -61,8 +64,7 @@ public class basicGUI extends JFrame {
                     if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
                         saveLocation = String.valueOf(chooser.getSelectedFile());
-                        String newFileName =  saveLocation + "\\" + fileName.replace(fileName.substring(fileName.length() - 4), ".txt");
-                        saveLocation = newFileName;
+                        saveLocation = saveLocation + "\\" + fileName.replace(fileName.substring(fileName.length() - 4), ".txt");
                         saveAsTextField.setText(saveLocation);
                     } else {
                     System.out.println("No Selection ");
@@ -79,10 +81,17 @@ public class basicGUI extends JFrame {
                 if (browseLocation.equals("")) {
                     JOptionPane.showMessageDialog(new JFrame(), "Please select a file");
                 }
+                setRunningLabel("Starting...");
                 Main.runOCR(browseLocation, saveLocation);
+                setRunningLabel("Finished");
+                Main.openFile(saveLocation);
             }
         });
 
         setVisible(true);
+    }
+
+    private void setRunningLabel(String content) {
+        runningLabel.setText(content);
     }
 }

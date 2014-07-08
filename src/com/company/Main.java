@@ -1,9 +1,8 @@
 package com.company;
 
+import java.awt.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,6 +10,8 @@ import java.net.URL;
 import org.apache.tika.Tika;
 
 import net.sourceforge.tess4j.*;
+
+import javax.swing.*;
 import java.io.File;
 
 
@@ -18,7 +19,7 @@ public class Main {
     private static String[] pageArray;
 
     public static void main(String[] args) {
-        basicGUI newForm = new basicGUI();
+        new basicGUI();
     }
     public static void runOCR(String browseLocation, String saveLocation) {
         try {
@@ -28,51 +29,65 @@ public class Main {
             } else if (!fileType.substring(0,5).equals("image")) {
                 System.out.println("File type " + fileType + " is not supported.");
             }
-
-            for(int i =0; i < pageArray.length; i++) {
-                File imageFile = new File(pageArray[i]);
+            doesFileExist(saveLocation);
+            for (String aPageArray : pageArray) {
+                File imageFile = new File(aPageArray);
                 Tesseract instance = Tesseract.getInstance();
                 String result = instance.doOCR(imageFile);
                 System.out.println(result);
                 appendToFile(result, saveLocation);
             }
+
         } catch (TesseractException e) {
             System.err.println(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public static String fileType3(String location) throws IOException {
-        Path source = Paths.get(location);
-        String fileType = Files.probeContentType(source);
-        return fileType;
-    }
     public static String fileType(String location){
         Tika tika = new Tika();
         //String fileType = tika.detect(new URL("http://tika.apache.org/tika.png"));
-        String fileType =  tika.detect(location);
         //System.out.println("File type " + fileType + ".");
-        return fileType;
+        return tika.detect(location);
+    }
+    public static void doesFileExist(String fileLocation) {
+        try {
+            File file =new File(fileLocation);
+            if(!file.exists()){
+                    file.createNewFile();
+            } else {
+                if (JOptionPane.showConfirmDialog(null, "Text file exists, do you want to overwrite?", "WARNING",
+                        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    Files.delete(Paths.get(fileLocation));
+                    file.createNewFile();
+                }
+            }
+        } catch (NoSuchFileException x) {
+            System.err.format("%s: no such" + " file or directory%n", Paths.get(fileLocation));
+        } catch (DirectoryNotEmptyException x) {
+            System.err.format("%s not empty%n", Paths.get(fileLocation));
+        } catch (IOException x) {
+            // File permission problems are caught here.
+            System.err.println(x);
+        }
     }
     public static void appendToFile(String data, String filename )
     {
-        try{
 
-            File file =new File(filename);
-
-            //if file doesn't exists, then create it
-            if(!file.exists()){
-                file.createNewFile();
-            }
-
-            //true = append file
+        try {
             FileWriter fileWritter = new FileWriter(filename,true);
             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
             bufferWritter.write(data);
             bufferWritter.close();
-
         }catch(IOException e){
             e.printStackTrace();
+        }
+    }
+    public static void openFile(String fileLocation){
+        try {
+            Desktop.getDesktop().open(new File(fileLocation));
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
     }
 }
