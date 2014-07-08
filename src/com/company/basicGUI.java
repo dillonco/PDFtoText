@@ -1,22 +1,26 @@
 package com.company;
 
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeListener;
-import java.io.File;
 
 /**
  * Created by Denny on 7/3/2014.
  */
 public class basicGUI extends JFrame {
-    private JButton closeButton;
+    private JButton runButton;
     private JTextField browseFileTextField;
     private JTextField saveAsTextField;
     private JButton browseButton;
     private JButton saveAsButton;
     private JPanel rootPanel;
+
+    private String browseLocation;
+    private String saveLocation;
+    private String fileName;
 
     public basicGUI() {
         super("PDF to Text");
@@ -24,6 +28,8 @@ public class basicGUI extends JFrame {
 
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage("paper_icon.png"));
 
         browseButton.addActionListener(new ActionListener() {
             @Override
@@ -34,13 +40,11 @@ public class basicGUI extends JFrame {
                 chooser.setFileFilter(filter);
                 int returnVal = chooser.showOpenDialog(getParent());
                 if(returnVal == JFileChooser.APPROVE_OPTION) {
-                    String location = (chooser.getCurrentDirectory() + "\\" +
-                            chooser.getSelectedFile().getName());
-                    browseFileTextField.setText(location);
-
-                    Main.runOCR(location);
-
-
+                    browseLocation = String.valueOf((chooser.getSelectedFile()));
+                    fileName =  chooser.getSelectedFile().getName();
+                    browseFileTextField.setText(browseLocation);
+                    saveLocation = browseLocation.replace(browseLocation.substring(browseLocation.length() - 4), ".txt");
+                    saveAsTextField.setText(saveLocation);
                 }
             }
         });
@@ -50,27 +54,32 @@ public class basicGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = new JFileChooser();
                 chooser.setCurrentDirectory(new java.io.File("."));
-                chooser.setDialogTitle("Save At");
+                chooser.setDialogTitle("Save As");
                 chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 chooser.setAcceptAllFileFilterUsed(false);
 
-                if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 
-                    System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
-                    saveAsTextField.setText(String.valueOf(chooser.getSelectedFile()));
-                } else {
+                        saveLocation = String.valueOf(chooser.getSelectedFile());
+                        String newFileName =  saveLocation + "\\" + fileName.replace(fileName.substring(fileName.length() - 4), ".txt");
+                        saveLocation = newFileName;
+                        saveAsTextField.setText(saveLocation);
+                    } else {
                     System.out.println("No Selection ");
                 }
 
             }
-                                       });
+                  });
 
 
 
-        closeButton.addActionListener(new ActionListener() {
+        runButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                if (browseLocation.equals("")) {
+                    JOptionPane.showMessageDialog(new JFrame(), "Please select a file");
+                }
+                Main.runOCR(browseLocation, saveLocation);
             }
         });
 

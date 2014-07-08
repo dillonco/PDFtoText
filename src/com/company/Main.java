@@ -20,12 +20,11 @@ public class Main {
     public static void main(String[] args) {
         basicGUI newForm = new basicGUI();
     }
-    public static void runOCR(String location) {
-        String destination = location.replace(location.substring(location.length() - 4), ".txt");
+    public static void runOCR(String browseLocation, String saveLocation) {
         try {
-            String fileType = fileType(location);
+            String fileType = fileType(browseLocation);
             if (fileType.equals("application/pdf")) {
-                pageArray = ConvertPDFPageToImage.convert(location);
+                pageArray = ConvertPDFPageToImage.convert(browseLocation);
             } else if (!fileType.substring(0,5).equals("image")) {
                 System.out.println("File type " + fileType + " is not supported.");
             }
@@ -35,7 +34,7 @@ public class Main {
                 Tesseract instance = Tesseract.getInstance();
                 String result = instance.doOCR(imageFile);
                 System.out.println(result);
-                appendToFile(result, destination);
+                appendToFile(result, saveLocation);
             }
         } catch (TesseractException e) {
             System.err.println(e.getMessage());
@@ -67,12 +66,10 @@ public class Main {
             }
 
             //true = append file
-            FileWriter fileWritter = new FileWriter(file.getName(),true);
+            FileWriter fileWritter = new FileWriter(filename,true);
             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
             bufferWritter.write(data);
             bufferWritter.close();
-
-            System.out.println("Done");
 
         }catch(IOException e){
             e.printStackTrace();
