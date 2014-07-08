@@ -2,7 +2,7 @@
   <artifact type="jar" name="Hello:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Hello_jar</output-path>
     <root id="archive" name="Hello.jar">
-      <element id="module-output" name="Hello" />
+      <element id="module-output" name="PDFtoText" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/tess4j.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jna-4.1.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-4.10.jar" path-in-jar="/" />
