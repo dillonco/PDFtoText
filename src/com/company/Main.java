@@ -75,10 +75,10 @@ public class Main {
     {
 
         try {
-            FileWriter fileWritter = new FileWriter(filename,true);
-            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-            bufferWritter.write(data);
-            bufferWritter.close();
+            FileWriter newFile = new FileWriter(filename,true);
+            BufferedWriter buffer = new BufferedWriter(newFile);
+            buffer.write(data);
+            buffer.close();
         }catch(IOException e){
             e.printStackTrace();
         }
